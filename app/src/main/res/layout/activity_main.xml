@@ -14,23 +14,28 @@
         android:textAllCaps="true"
         android:paddingBottom="16dp"
         />
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:onClick="decreaseOneCoffee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"/>
+        <TextView
         android:id="@+id/quantity_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:color="@android:color/black"
         android:text="0"
         android:textSize="16sp"
-        android:paddingBottom="16dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
+        android:paddingBottom="16dp"/>>
+        <Button
+            android:onClick="addOneCoffee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price"
-            android:textAllCaps="true"
-            android:paddingBottom="16dp"
+            android:text="+"/>
             />
     </LinearLayout>
 
