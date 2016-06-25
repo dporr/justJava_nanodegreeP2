@@ -10,33 +10,37 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quantity"
-        android:textAllCaps="true"
         android:paddingBottom="16dp"
-        />
+        android:text="Quantity"
+        android:textAllCaps="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:onClick="decreaseOneCoffee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-"/>
+            android:text="-" />
+
         <TextView
-        android:id="@+id/quantity_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:color="@android:color/black"
-        android:text="0"
-        android:textSize="16sp"
-        android:paddingBottom="16dp"/>>
-        <Button
-            android:onClick="addOneCoffee"
+            android:id="@+id/quantity_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+"/>
-            />
+            android:color="@android:color/black"
+            android:padding="8dp"
+            android:paddingBottom="16dp"
+            android:text="0"
+            android:textSize="16sp" />>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addOneCoffee"
+            android:text="+" />
+        />
     </LinearLayout>
 
     <TextView
@@ -44,15 +48,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:color="@android:color/black"
+        android:paddingBottom="16dp"
         android:text="0"
-        android:textSize="16sp"
-        android:paddingBottom="16dp"/>
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/order_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ORDER"
         android:onClick="submitOrder"
-        />
+        android:text="ORDER" />
 </LinearLayout>

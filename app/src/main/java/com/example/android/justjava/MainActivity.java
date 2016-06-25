@@ -11,11 +11,11 @@ import java.text.NumberFormat;
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends Activity{
-    private int coffes;
+    private int numberOfCoffees;
     private final int PRICE=5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        coffes=0;
+        numberOfCoffees =0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
@@ -24,7 +24,7 @@ public class MainActivity extends Activity{
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        displayPrice(coffes * PRICE);
+        displayPrice(numberOfCoffees * PRICE);
     }
 
     /**
@@ -41,23 +41,25 @@ public class MainActivity extends Activity{
      * This method displays the given price on the screen.
      */
     private void displayPrice(int number) {
+        String message="Please pay: " +NumberFormat.getCurrencyInstance().format(number);
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+        priceTextView.setText(message);
     }
 
     /**
      * Add one coffee to the total order
      */
     public void addOneCoffee(View view){
-        coffes++;
-        display(coffes);
+        numberOfCoffees++;
+        display(numberOfCoffees);
     }
 
     /**
      *Decreases the total order by one coffee
      */
     public void decreaseOneCoffee(View view){
-        coffes--;
-        display(coffes);
+        if(numberOfCoffees ==0) return;
+        numberOfCoffees--;
+        display(numberOfCoffees);
     }
 }
