@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -14,7 +15,6 @@ import java.text.NumberFormat;
 public class MainActivity extends Activity{
     private int numberOfCoffees;
     private final int COFFEE_PRICE=5;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         numberOfCoffees =0;
@@ -37,8 +37,14 @@ public class MainActivity extends Activity{
         CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_check_box);
         return chocolateCheckBox .isChecked();
     }
+    /**
+     *@return the name of the person who is ordering
+     */
+    private String getOrderName(){
+        EditText nameEditText = (EditText) findViewById(R.id.name_edit_text);
+        return nameEditText.getText().toString();
 
-
+    }
     /**
      * This method is called when the order button is clicked.
      */
@@ -46,12 +52,21 @@ public class MainActivity extends Activity{
         int price=calculatePrice();
         boolean addWhippedCream= hasWhippedCream();
         boolean addChocolate = hasChocolate();
-        String order = orderSummary(price,addWhippedCream,addChocolate);
+        String name= getOrderName();
+        String order = orderSummary(name,price,addWhippedCream,addChocolate);
         displayPrice(order);
     }
 
-    private String orderSummary(int price,boolean addWhippedCream,boolean addChocolate){
-        String order="Name:Diego Porras" +
+    /**
+     * Create summary of the order.
+     *
+     * @param addWhippedCream is whether or not the user wants whipped cream topping
+     * @param addChocolate is whether or not the user wants whipped cream topping
+     * @param price of the order
+     * @return text summary
+     */
+    private String orderSummary(String name,int price,boolean addWhippedCream,boolean addChocolate){
+        String order="\n"+name +
                 "\nQuantity: "+numberOfCoffees+
                 "\nAdd whipped cream:"+ addWhippedCream +
                 "\nAdd chocolate:"+ addChocolate +
@@ -70,8 +85,7 @@ public class MainActivity extends Activity{
      * @param number of ordered coffees
      */
     private void displayQuantity(int number) {
-        TextView quantityTextView = (TextView) findViewById(
-                R.id.quantity_text_view);
+        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
     }
 
