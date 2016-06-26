@@ -3,6 +3,7 @@ package com.example.android.justjava;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -12,7 +13,8 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends Activity{
     private int numberOfCoffees;
-    private final int PRICE=5;
+    private final int COFFEE_PRICE=5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         numberOfCoffees =0;
@@ -21,16 +23,42 @@ public class MainActivity extends Activity{
     }
 
     /**
-     * This method is called when the order button is clicked.
+     *@return true if adds whipped cream to the order
      */
-    public void submitOrder(View view) {
-        displayPrice(numberOfCoffees * PRICE);
+    private boolean hasWhippedCream(){
+        CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_check_box);
+        return whippedCreamCheckBox.isChecked();
     }
 
     /**
-     * This method displays the given quantity value on the screen.
+     * This method is called when the order button is clicked.
      */
-    private void display(int number) {
+    public void submitOrder(View view) {
+        int price=calculatePrice();
+        boolean addWhippedCream= hasWhippedCream();
+        String order = orderSummary(price,addWhippedCream);
+        displayPrice(order);
+    }
+
+    private String orderSummary(int price,boolean addWhippedCream){
+        String order="Name:Diego Porras" +
+                "\nQuantity: "+numberOfCoffees+
+                "\nAdd whipped cream:"+ addWhippedCream +
+                "\nTotal: " +NumberFormat.getCurrencyInstance().format(price)+
+                "\nThank you!";
+        return order;
+    }
+    /**
+     * @return  total price based on the number of ordered coffees
+     */
+    private int calculatePrice(){
+        return numberOfCoffees * COFFEE_PRICE;
+    }
+    /**
+     * This method displays the given quantity value on the screen.
+     * @param number of ordered coffees
+     */
+    private void displayQuantity(int number) {
         TextView quantityTextView = (TextView) findViewById(
                 R.id.quantity_text_view);
         quantityTextView.setText("" + number);
@@ -38,12 +66,11 @@ public class MainActivity extends Activity{
 
 
     /**
-     * This method displays the given price on the screen.
+     * This method displays the total price on the screen.
      */
-    private void displayPrice(int number) {
-        String message="Please pay: " +NumberFormat.getCurrencyInstance().format(number);
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+    private void displayPrice(String order) {
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(order);
     }
 
     /**
@@ -51,7 +78,7 @@ public class MainActivity extends Activity{
      */
     public void addOneCoffee(View view){
         numberOfCoffees++;
-        display(numberOfCoffees);
+        displayQuantity(numberOfCoffees);
     }
 
     /**
@@ -60,6 +87,6 @@ public class MainActivity extends Activity{
     public void decreaseOneCoffee(View view){
         if(numberOfCoffees ==0) return;
         numberOfCoffees--;
-        display(numberOfCoffees);
+        displayQuantity(numberOfCoffees);
     }
 }
