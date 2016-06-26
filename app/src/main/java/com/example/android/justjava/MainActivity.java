@@ -31,19 +31,30 @@ public class MainActivity extends Activity{
     }
 
     /**
+     *@return true if adds chocolate to the order
+     */
+    private boolean hasChocolate(){
+        CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_check_box);
+        return chocolateCheckBox .isChecked();
+    }
+
+
+    /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
         int price=calculatePrice();
         boolean addWhippedCream= hasWhippedCream();
-        String order = orderSummary(price,addWhippedCream);
+        boolean addChocolate = hasChocolate();
+        String order = orderSummary(price,addWhippedCream,addChocolate);
         displayPrice(order);
     }
 
-    private String orderSummary(int price,boolean addWhippedCream){
+    private String orderSummary(int price,boolean addWhippedCream,boolean addChocolate){
         String order="Name:Diego Porras" +
                 "\nQuantity: "+numberOfCoffees+
                 "\nAdd whipped cream:"+ addWhippedCream +
+                "\nAdd chocolate:"+ addChocolate +
                 "\nTotal: " +NumberFormat.getCurrencyInstance().format(price)+
                 "\nThank you!";
         return order;
