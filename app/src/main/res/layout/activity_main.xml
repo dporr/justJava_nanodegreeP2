@@ -25,7 +25,7 @@
             android:color="@android:color/black"
             android:paddingBottom="16dp"
             android:text="@string/toppings"
-            android:textSize="16sp" />q
+            android:textSize="16sp" />
 
         <CheckBox
             android:id="@+id/whipped_cream_check_box"
