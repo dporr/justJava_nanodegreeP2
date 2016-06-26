@@ -10,8 +10,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:color="@android:color/black"
         android:paddingBottom="16dp"
-        android:text="Quantity"
+        android:text="@string/toppings"
+        android:textSize="16sp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/whipped_c"
+        android:paddingLeft="24dp"
+        android:textColor="@android:color/background_dark"
+        android:textAppearance="?android:textAppearanceMedium"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:text="@string/quantity"
         android:textAllCaps="true" />
 
     <LinearLayout
@@ -44,7 +60,15 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/price_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:color="@android:color/black"
+        android:paddingBottom="16dp"
+        android:text="@string/order_summary"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/order_summary_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:color="@android:color/black"
@@ -57,5 +81,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="submitOrder"
-        android:text="ORDER" />
+        android:text="@string/order" />
 </LinearLayout>
