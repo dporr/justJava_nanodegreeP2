@@ -55,14 +55,15 @@ public class MainActivity extends Activity{
      * Composes an email including the order summary as the body
      * @param order
      */
+
     public void sendOrderEmail(String order){
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
-        intent.setType("plain/text");
+        intent.setType("*/*");
         intent.putExtra(Intent.EXTRA_SUBJECT, "Just java order for " +getOrderName());
         intent.putExtra(Intent.EXTRA_TEXT, order);
         if (intent.resolveActivity(getPackageManager()) != null) {
-           startActivity(intent);
+            startActivity(intent);
         }
 
     }
@@ -87,12 +88,12 @@ public class MainActivity extends Activity{
      * @return text summary
      */
     private String orderSummary(String name,int price,boolean addWhippedCream,boolean addChocolate){
-        String order="\nName:"+name +
-                "\nQuantity: "+numberOfCoffees+
-                "\nAdd whipped cream:"+ addWhippedCream +
-                "\nAdd chocolate:"+ addChocolate +
+        String order="\n"+getString(R.string.name)+name +
+                "\n"+getString(R.string.quantity) +": "+numberOfCoffees+
+                "\n"+getString(R.string.add_whipped_cream)+ addWhippedCream +
+                "\n"+getString(R.string.add_chocolate)+ addChocolate +
                 "\nTotal: " +NumberFormat.getCurrencyInstance().format(price)+
-                "\nThank you!";
+                getString(R.string.thank_you);
         return order;
     }
     /**
