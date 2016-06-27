@@ -1,11 +1,14 @@
 package com.example.android.justjava;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
@@ -13,8 +16,10 @@ import java.text.NumberFormat;
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends Activity{
-    private int numberOfCoffees;
+    private int numberOfCoffees=1;
     private final int COFFEE_PRICE=5;
+    private final int WHIPPED_CREAM_FEE=1;
+    private final int CHOCOLATE_FEE=2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         numberOfCoffees =0;
@@ -45,6 +50,22 @@ public class MainActivity extends Activity{
         return nameEditText.getText().toString();
 
     }
+
+    /**
+     * Composes an email including the order summary as the body
+     * @param order
+     */
+    public void sendOrderEmail(String order){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+        intent.setType("plain/text");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Just java order for " +getOrderName());
+        intent.putExtra(Intent.EXTRA_TEXT, order);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+           startActivity(intent);
+        }
+
+    }
     /**
      * This method is called when the order button is clicked.
      */
@@ -54,7 +75,7 @@ public class MainActivity extends Activity{
         boolean addChocolate = hasChocolate();
         String name= getOrderName();
         String order = orderSummary(name,price,addWhippedCream,addChocolate);
-        displayPrice(order);
+        sendOrderEmail(order);
     }
 
     /**
@@ -66,7 +87,7 @@ public class MainActivity extends Activity{
      * @return text summary
      */
     private String orderSummary(String name,int price,boolean addWhippedCream,boolean addChocolate){
-        String order="\n"+name +
+        String order="\nName:"+name +
                 "\nQuantity: "+numberOfCoffees+
                 "\nAdd whipped cream:"+ addWhippedCream +
                 "\nAdd chocolate:"+ addChocolate +
@@ -77,8 +98,12 @@ public class MainActivity extends Activity{
     /**
      * @return  total price based on the number of ordered coffees
      */
-    private int calculatePrice(){
-        return numberOfCoffees * COFFEE_PRICE;
+    private int calculatePrice()
+    {
+        int total= numberOfCoffees * COFFEE_PRICE;
+        if(hasWhippedCream()) total += numberOfCoffees * WHIPPED_CREAM_FEE;
+        if(hasChocolate()) total += numberOfCoffees * CHOCOLATE_FEE;
+        return total;
     }
     /**
      * This method displays the given quantity value on the screen.
@@ -102,6 +127,9 @@ public class MainActivity extends Activity{
      * Add one coffee to the total order
      */
     public void addOneCoffee(View view){
+        if(numberOfCoffees == 100){
+            Toast.makeText(this,"Cannot order more than 100 coffees.",Toast.LENGTH_SHORT).show();
+            return;}
         numberOfCoffees++;
         displayQuantity(numberOfCoffees);
     }
@@ -110,7 +138,9 @@ public class MainActivity extends Activity{
      *Decreases the total order by one coffee
      */
     public void decreaseOneCoffee(View view){
-        if(numberOfCoffees ==0) return;
+        if(numberOfCoffees ==1){
+            Toast.makeText(this,"Cannot order negative number of coffees.",Toast.LENGTH_SHORT).show();
+            return;}
         numberOfCoffees--;
         displayQuantity(numberOfCoffees);
     }
