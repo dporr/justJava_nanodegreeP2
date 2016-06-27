@@ -6,6 +6,9 @@
     <string name="order">ORDER</string>
     <string name="whipped_cream" />
     <string name="whipped_c">Whipped Cream</string>
+    <string name="add_whipped_cream">Add whipped cream: </string>
+    <string name="add_chocolate">Add chocolate: </string>
     <string name="chocolate">Chocolate</string>
+    <string name="thank_you">Thank you!</string>
     <string name="name">Name</string>
 </resources>
